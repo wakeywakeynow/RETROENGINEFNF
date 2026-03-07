@@ -1101,14 +1101,7 @@ class PlayState extends MusicBeatState
 		// FlxG.watch.addQuick('asdfa', upP);
 		if ((upP || rightP || downP || leftP) && !boyfriend.stunned && generatedMusic)
 		{
-			if (curSong != 'Bopeebo')
-			{
-				new FlxTimer().start(4, function(tmr:FlxTimer)
-				{
-					boyfriend.playAnim('idle');
-					boyfriend.stunned = false;
-				});
-			}
+			boyfriend.holdTimer = 0;
 
 			var possibleNotes:Array<Note> = [];
 
