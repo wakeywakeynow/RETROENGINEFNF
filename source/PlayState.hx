@@ -266,7 +266,25 @@ class PlayState extends MusicBeatState
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
-		healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
+
+		switch (SONG.song.toLowerCase())
+		{
+			case 'tutorial':
+				healthBar.createFilledBar(FlxColor.fromRGB(255, 0, 0), FlxColor.fromRGB(0, 0, 255));
+			case 'bopeebo':
+				healthBar.createFilledBar(FlxColor.fromRGB(128, 0, 128), FlxColor.fromRGB(0, 0, 255));
+			case 'fresh':
+				healthBar.createFilledBar(FlxColor.fromRGB(128, 0, 128), FlxColor.fromRGB(0, 0, 255));
+			case 'dadbattle':
+				healthBar.createFilledBar(FlxColor.fromRGB(128, 0, 128), FlxColor.fromRGB(0, 0, 255));
+			case 'spookeez':
+				healthBar.createFilledBar(FlxColor.fromRGB(255, 165, 0), FlxColor.fromRGB(0, 0, 255));
+			case 'south':
+				healthBar.createFilledBar(FlxColor.fromRGB(255, 165, 0), FlxColor.fromRGB(0, 0, 255));
+			case 'monster':
+				healthBar.createFilledBar(FlxColor.fromRGB(255, 255, 0), FlxColor.fromRGB(0, 0, 255));
+		}
+
 		// healthBar
 		add(healthBar);
 
