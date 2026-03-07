@@ -125,19 +125,25 @@ class PlayState extends MusicBeatState
 				dialogue = ["Hey you're pretty cute.", 'Use the arrow keys to keep up \nwith me singing.'];
 			case 'bopeebo':
 				dialogue = [
-					'HEY!',
+					'HEY!!!',
 					"You think you can just sing\nwith my daughter like that?",
 					"If you want to date her...",
 					"You're going to have to go \nthrough ME first!"
 				];
 			case 'fresh':
-				dialogue = ["Not too shabby boy.", ""];
+				dialogue = ["Not too shabby boy.", "Let's go again."];
 			case 'dadbattle':
 				dialogue = [
 					"gah you think you're hot stuff?",
 					"If you can beat me here...",
 					"Only then I will even CONSIDER letting you\ndate my daughter!"
 				];
+			case 'spookeez':
+				dialogue = ["Ooga Booga!", "It's time to sing for...", "SPOOKY MONTH!!!"];
+			case 'south':
+				dialogue = ["Again! Again!"];
+			case 'monster':
+				dialogue = ["Oh those sweet... SWEET... kids...", "Led you RIGHT TO ME!", "Now you can be A MEAL!"];
 		}
 
 		if (SONG.song.toLowerCase() == 'spookeez' || SONG.song.toLowerCase() == 'monster' || SONG.song.toLowerCase() == 'south')
@@ -283,7 +289,7 @@ class PlayState extends MusicBeatState
 		if (isStoryMode)
 		{
 			// TEMP for now, later get rid of startCountdown()
-			// add(doof);
+			//add(doof);
 			startCountdown();
 		}
 		else
