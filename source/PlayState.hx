@@ -866,8 +866,29 @@ class PlayState extends MusicBeatState
 				{
 					if (daNote.tooLate || !daNote.wasGoodHit)
 					{
-						health -= 0.04;
-						vocals.volume = 0;
+        				health -= 0.05;
+
+        				if (combo > 5)
+           					gf.playAnim('sad');
+
+        				combo = 0;
+        				songScore -= 10;
+
+        				vocals.volume = 0;
+
+        				FlxG.sound.play('assets/sounds/missnote' + FlxG.random.int(1, 3) + TitleState.soundExt, FlxG.random.float(0.1, 0.2));
+
+        				switch (Math.abs(daNote.noteData))
+        				{
+                    		case 2:
+                        		boyfriend.playAnim('singUPmiss', true);
+                    		case 3:
+                        		boyfriend.playAnim('singRIGHTmiss', true);
+                    		case 1:
+                        		boyfriend.playAnim('singDOWNmiss', true);
+                    		case 0:
+                        		boyfriend.playAnim('singLEFTmiss', true);
+                		}
 					}
 
 					daNote.active = false;
