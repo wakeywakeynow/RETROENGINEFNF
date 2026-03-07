@@ -654,6 +654,11 @@ class PlayState extends MusicBeatState
 			FlxG.switchState(new ChartingState());
 		}
 
+		if (isHalloween && FlxG.keys.justPressed.NINE)
+		{
+    		lightningStrikeShit();
+		}
+
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
 
@@ -1366,7 +1371,10 @@ class PlayState extends MusicBeatState
 		lightningStrikeBeat = curBeat;
 		lightningOffset = FlxG.random.int(8, 24);
 
-		boyfriend.playAnim('scared', true);
+		if (!boyfriend.animation.curAnim.name.startsWith("sing"))
+		{
+			boyfriend.playAnim('scared', true);
+		}
 		gf.playAnim('scared', true);
 	}
 
