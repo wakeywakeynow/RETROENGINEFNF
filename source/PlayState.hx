@@ -912,6 +912,7 @@ class PlayState extends MusicBeatState
 	function endSong():Void
 	{
 		canPause = false;
+		vocals = new FlxSound();
 
 		Highscore.saveScore(SONG.song, songScore, storyDifficulty);
 
@@ -1100,7 +1101,14 @@ class PlayState extends MusicBeatState
 		// FlxG.watch.addQuick('asdfa', upP);
 		if ((upP || rightP || downP || leftP) && !boyfriend.stunned && generatedMusic)
 		{
-			boyfriend.holdTimer = 0;
+			if (curSong != 'Bopeebo')
+			{
+				new FlxTimer().start(4, function(tmr:FlxTimer)
+				{
+					boyfriend.playAnim('idle');
+					boyfriend.stunned = false;
+				});
+			}
 
 			var possibleNotes:Array<Note> = [];
 
