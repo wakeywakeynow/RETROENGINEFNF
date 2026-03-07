@@ -72,7 +72,7 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollow, null, 0.06);
 
-		var engineInfo:FlxText = new FlxText(5, FlxG.height - 36, 0, "Retro Engine v0.1.0");
+		var engineInfo:FlxText = new FlxText(5, FlxG.height - 36, 0, "Retro Engine v0.2.0");
 		engineInfo.scrollFactor.set();
 		engineInfo.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(engineInfo);
