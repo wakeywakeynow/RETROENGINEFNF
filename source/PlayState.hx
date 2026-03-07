@@ -276,6 +276,7 @@ class PlayState extends MusicBeatState
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
 
+		// colors ADD YOUR SONGS HERE IF YOU WANT COLORED HEALTHBARS
 		switch (SONG.song.toLowerCase())
 		{
 			case 'tutorial':
@@ -294,7 +295,6 @@ class PlayState extends MusicBeatState
 				healthBar.createFilledBar(FlxColor.fromRGB(255, 255, 0), FlxColor.fromRGB(0, 0, 255));
 		}
 
-		// healthBar
 		add(healthBar);
 
 		scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 212, healthBarBG.y + 30, 0, "", 20);
