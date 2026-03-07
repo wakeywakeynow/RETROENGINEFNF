@@ -108,23 +108,6 @@ class FreeplayState extends MusicBeatState
 
 		var swag:Alphabet = new Alphabet(1, 0, "swag");
 
-		// JUST DOIN THIS SHIT FOR TESTING!!!
-		/* 
-			var md:String = Markdown.markdownToHtml(Assets.getText('CHANGELOG.md'));
-
-			var texFel:TextField = new TextField();
-			texFel.width = FlxG.width;
-			texFel.height = FlxG.height;
-			// texFel.
-			texFel.htmlText = md;
-
-			FlxG.stage.addChild(texFel);
-
-			// scoreText.textField.htmlText = md;
-
-			trace(md);
-		 */
-
 		super.create();
 	}
 
@@ -198,7 +181,7 @@ class FreeplayState extends MusicBeatState
 		switch(curDifficulty)
 		{
 			case 0: bg.color = FlxColor.fromRGB(100, 200, 255); // EASY
-			case 1: bg.color = FlxColor.fromRGB(32, 45, 45); // NORMAL
+			case 1: bg.color = FlxColor.fromRGB(125, 111, 87); // NORMAL
 			case 2: bg.color = FlxColor.fromRGB(255, 100, 100); // HARD
 		}
 	}
