@@ -616,9 +616,9 @@ class PlayState extends MusicBeatState
 		{
 			if (FlxG.sound.music != null)
 			{
-				vocals.time = Conductor.songPosition;
-
 				FlxG.sound.music.play();
+				Conductor.songPosition = FlxG.sound.music.time;
+				vocals.time = Conductor.songPosition;
 				vocals.play();
 			}
 
@@ -769,10 +769,8 @@ class PlayState extends MusicBeatState
 		{
 			switch (totalBeats)
 			{
-				case 127:
-					// FlxG.sound.music.stop();
-					// curLevel = 'Fresh';
-					// FlxG.switchState(new PlayState());
+				case 128, 129, 130:
+					vocals.volume = 0;
 			}
 		}
 		// better streaming of shit
@@ -854,7 +852,7 @@ class PlayState extends MusicBeatState
 
 				if (daNote.y < -daNote.height)
 				{
-					if (daNote.tooLate)
+					if (daNote.tooLate || !daNote.wasGoodHit)
 					{
 						health -= 0.04;
 						vocals.volume = 0;
