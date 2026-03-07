@@ -99,6 +99,8 @@ class PlayState extends MusicBeatState
     var bfX:Float = 770;
     var bfY:Float = 450;
 
+	public static var theStageweusing:String = 'Stage';
+
 	override public function create()
 	{
 		// var gameCam:FlxCamera = FlxG.camera;
@@ -162,6 +164,8 @@ class PlayState extends MusicBeatState
 
 			isHalloween = true;
 
+			theStageweusing = 'SpookyMonth';
+
 			gfX = 365;
 		}
 		else
@@ -182,14 +186,7 @@ class PlayState extends MusicBeatState
 			stageFront.active = false;
 			add(stageFront);
 
-			var stageCurtains:FlxSprite = new FlxSprite(-500, -300).loadGraphic(AssetPaths.stagecurtains__png);
-			stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
-			stageCurtains.updateHitbox();
-			stageCurtains.antialiasing = true;
-			stageCurtains.scrollFactor.set(1.3, 1.3);
-			stageCurtains.active = false;
-
-			add(stageCurtains);
+			theStageweusing = 'Stage';
 		}
 
     	gf = new Character(gfX, gfY, "gf");
@@ -220,6 +217,18 @@ class PlayState extends MusicBeatState
 
     	boyfriend = new Boyfriend(bfX, bfY);
     	add(boyfriend);
+
+        // add background elements that go over the characters here
+		if (theStageweusing == 'Stage')
+		{
+			var stageCurtains:FlxSprite = new FlxSprite(-500, -300).loadGraphic(AssetPaths.stagecurtains__png);
+			stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
+			stageCurtains.updateHitbox();
+			stageCurtains.antialiasing = true;
+			stageCurtains.scrollFactor.set(1.3, 1.3);
+			stageCurtains.active = false;
+			add(stageCurtains);
+		}
 
 		var doof:DialogueBox = new DialogueBox(false, dialogue);
 		// doof.x += 70;
