@@ -106,6 +106,9 @@
 
 	<icon path="art/icon.png" />
 	<!-- <haxedef name="SKIP_TO_PLAYSTATE" if="debug" /> -->
+
+        <haxedef name="OFFICIAL_BUILD" if="official" />
+
 	<haxedef name="NG_LOGIN" if="newgrounds" />
 
 

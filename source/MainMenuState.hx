@@ -23,6 +23,9 @@ class MainMenuState extends MusicBeatState
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 
+	// specifics for retro engine
+	var engineVersion:String = "0.2.0.1";
+
 	override function create()
 	{
 		if (!FlxG.sound.music.playing)
@@ -77,10 +80,16 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollow, null, 0.06);
 
-		var engineInfo:FlxText = new FlxText(5, FlxG.height - 36, 0, "Retro Engine v0.2.0.1");
-		engineInfo.scrollFactor.set();
-		engineInfo.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(engineInfo);
+		#if OFFICIAL_BUILD
+		var Label:String = "Retro Engine v" + engineVersion + " (OFFICIAL)";
+		#else
+		var Label:String = "Retro Engine v" + engineVersion;
+		#end
+
+		var Info:FlxText = new FlxText(5, FlxG.height - 36, 0, Label);
+		Info.scrollFactor.set();
+		Info.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(Info);
 
 		var versionShit:FlxText = new FlxText(5, FlxG.height - 18, 0, "FNF v" + Application.current.meta.get('version'));
 		versionShit.scrollFactor.set();
