@@ -73,6 +73,7 @@ class Character extends FlxSprite
 				addOffset("singRIGHT", 0, 27);
 				addOffset("singLEFT", -10, 10);
 				addOffset("singDOWN", 0, -30);
+				
 			case 'spooky':
 				tex = FlxAtlasFrames.fromSparrow(AssetPaths.spooky_kids_assets__png, AssetPaths.spooky_kids_assets__xml);
 				frames = tex;
