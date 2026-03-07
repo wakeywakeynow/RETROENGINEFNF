@@ -1045,9 +1045,7 @@ class PlayState extends MusicBeatState
 			{
 				if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate)
 				{
-                	var timeDiff:Float = daNote.strumTime - Conductor.songPosition;
-                	if(Math.abs(timeDiff) <= Conductor.safeZoneOffset * 1.5)
-                   		possibleNotes.push(daNote);
+                   	possibleNotes.push(daNote);
 				}
 			});
 
