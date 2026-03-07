@@ -1101,9 +1101,15 @@ class PlayState extends MusicBeatState
 
 			notes.forEachAlive(function(daNote:Note)
 			{
-				if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate)
+				if (!daNote.mustPress)
+					return;
+
+				if (daNote.canBeHit && !daNote.tooLate)
 				{
-                   	possibleNotes.push(daNote);
+					possibleNotes.push(daNote);
+
+					if (daNote.strumTime - Conductor.songPosition > 180)
+						return;
 				}
 			});
 
