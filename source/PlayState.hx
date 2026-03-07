@@ -927,13 +927,6 @@ class PlayState extends MusicBeatState
 
 		songScore += score;
 
-		/* if (combo > 60)
-				daRating = 'sick';
-			else if (combo > 12)
-				daRating = 'good'
-			else if (combo > 4)
-				daRating = 'bad';
-		 */
 		rating.loadGraphic('assets/images/' + daRating + ".png");
 		rating.screenCenter();
 		rating.x = coolText.x - 40;
