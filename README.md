@@ -2,5 +2,4 @@
 
 This is the repository for Friday Night Funkin retro engine.
 
-
-ENGINE IS ON HOLD BECAUSE GAMEBANANA
+OFFICAL GAMEBANANA REPO: https://gamebanana.com/tools/22083
