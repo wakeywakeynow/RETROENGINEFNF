@@ -119,7 +119,7 @@ class Character extends FlxSprite
 				holdTimer += elapsed;
 			}
 
-			var dadVar:Float = 4;
+			var dadVar:Float = 5.2;
 
 			if (curCharacter == 'dad')
 				dadVar = 6.1;
