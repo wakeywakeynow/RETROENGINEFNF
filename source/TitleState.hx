@@ -75,6 +75,7 @@ class TitleState extends MusicBeatState
 	}
 
 	var logoBl:FlxSprite;
+	var logo:FlxSprite;
 	var gfDance:FlxSprite;
 	var danceLeft:Bool = false;
 	var titleText:FlxSprite;
@@ -111,19 +112,16 @@ class TitleState extends MusicBeatState
 		persistentUpdate = true;
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		// bg.antialiasing = true;
-		// bg.setGraphicSize(Std.int(bg.width * 0.6));
-		// bg.updateHitbox();
 		add(bg);
 
 		logoBl = new FlxSprite(-150, -100);
-		logoBl.frames = FlxAtlasFrames.fromSparrow(AssetPaths.logoBumpin__png, AssetPaths.logoBumpin__xml);
+		logoBl.frames = FlxAtlasFrames.fromSparrow(AssetPaths.logo2__png, AssetPaths.logo2__xml);
 		logoBl.antialiasing = true;
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
 		logoBl.animation.play('bump');
 		logoBl.updateHitbox();
 		logoBl.screenCenter();
-		// logoBl.color = FlxColor.BLACK;
+		logoBl.color = FlxColor.WHITE; // this doesnt do anything but im keeping it :3
 
 		//gfDance = new FlxSprite(FlxG.width * 0.4, FlxG.height * 0.07);
 		//gfDance.frames = FlxAtlasFrames.fromSparrow(AssetPaths.gfDanceTitle__png, AssetPaths.gfDanceTitle__xml);
@@ -143,13 +141,16 @@ class TitleState extends MusicBeatState
 		// titleText.screenCenter(X);
 		add(titleText);
 
-		var logo:FlxSprite = new FlxSprite().loadGraphic(AssetPaths.logo__png);
+		logo = new FlxSprite(-150, -100);
+		logo.frames = FlxAtlasFrames.fromSparrow(AssetPaths.logoBumpin__png, AssetPaths.logoBumpin__xml);
 		logo.screenCenter();
 		logo.antialiasing = true;
-		// add(logo);
+		logo.animation.addByPrefix('bump', 'logo bumpin', 24);
+		logo.animation.play('bump');
+		add(logo);
 
 		FlxTween.tween(logoBl, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
-		// FlxTween.tween(logo, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG, startDelay: 0.1});
+		FlxTween.tween(logo, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG, startDelay: 0.1});
 
 		credGroup = new FlxGroup();
 		add(credGroup);
@@ -290,6 +291,7 @@ class TitleState extends MusicBeatState
 		super.beatHit();
 
 		logoBl.animation.play('bump');
+		logo.animation.play('bump');
 		
 		FlxG.log.add(curBeat);
 
