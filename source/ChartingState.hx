@@ -101,6 +101,8 @@ class ChartingState extends MusicBeatState
 			};
 		}
 
+		FlxG.mouse.visible = true;
+
 		tempBpm = _song.bpm;
 
 		addSection();
