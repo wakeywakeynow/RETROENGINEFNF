@@ -8,7 +8,7 @@ import sys.io.Process;
 class UpdateCheckState extends MusicBeatState
 {
     var latestVersion:String = "";
-    var currentVersion:String = "0.2.0.1";
+    var currentVersion:String = MainMenuState.engineVersion;
 
     override function create()
     {

@@ -24,7 +24,7 @@ class MainMenuState extends MusicBeatState
 	var camFollow:FlxObject;
 
 	// specifics for retro engine
-	var engineVersion:String = "0.2.0.1";
+	public static var engineVersion:String = "0.2.0.1";
 
 	override function create()
 	{
