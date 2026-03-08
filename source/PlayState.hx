@@ -58,6 +58,7 @@ class PlayState extends MusicBeatState
 	private var camFollow:FlxObject;
 	private var strumLineNotes:FlxTypedGroup<FlxSprite>;
 	private var playerStrums:FlxTypedGroup<FlxSprite>;
+	private var enemyStrums:FlxTypedGroup<FlxSprite>;
 
 	private var camZooming:Bool = false;
 	private var curSong:String = "";
@@ -247,6 +248,7 @@ class PlayState extends MusicBeatState
 		add(strumLineNotes);
 
 		playerStrums = new FlxTypedGroup<FlxSprite>();
+		enemyStrums = new FlxTypedGroup<FlxSprite>();
 
 		startingSong = true;
 
@@ -551,10 +553,10 @@ class PlayState extends MusicBeatState
 
 			babyArrow.ID = i;
 
-			if (player == 1)
-			{
-				playerStrums.add(babyArrow);
-			}
+        	if (player == 1)
+            	playerStrums.add(babyArrow);
+        	else
+            	enemyStrums.add(babyArrow);
 
 			switch (Math.abs(i))
 			{
@@ -839,7 +841,7 @@ class PlayState extends MusicBeatState
 				{
 					if (SONG.song != 'Tutorial')
 						camZooming = true;
-
+	
 					switch (Math.abs(daNote.noteData))
 					{
 						case 2:
@@ -856,6 +858,44 @@ class PlayState extends MusicBeatState
 
 					if (SONG.needsVoices)
 						vocals.volume = 1;
+
+    				var spr:FlxSprite = null;
+
+					for (s in enemyStrums.members)
+					{
+    					if (Math.abs(s.ID) == daNote.noteData)
+    					{
+        					spr = s;
+        					break;
+    					}
+					}
+
+    				if (spr != null)
+    				{
+						if (!spr.animation.curAnim.name.startsWith('confirm'))
+            				spr.animation.play('pressed');
+
+        				if (Math.abs(daNote.noteData) == spr.ID)
+        				{
+            				spr.animation.play('confirm', true);
+            				if (spr.animation.curAnim.name == 'confirm')
+            				{
+                				spr.centerOffsets();
+                				spr.offset.x -= 13;
+                				spr.offset.y -= 13;
+
+								var duration = spr.animation.curAnim.frames.length / spr.animation.curAnim.frameRate;
+        						var timer = new FlxTimer();
+        						timer.start(duration, function(t:FlxTimer)
+        						{
+            						spr.animation.play("static", true);
+            						spr.centerOffsets();
+        						});
+            				}
+            				else
+                				spr.centerOffsets();
+        				}
+    				}
 
 					daNote.kill();
 					notes.remove(daNote, true);
