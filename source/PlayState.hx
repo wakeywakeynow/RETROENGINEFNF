@@ -19,8 +19,8 @@ import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.system.FlxSound;
 import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 import flixel.ui.FlxBar;
 import flixel.util.FlxCollision;
 import flixel.util.FlxColor;
@@ -953,6 +953,16 @@ class PlayState extends MusicBeatState
 	{
 		canPause = false;
 		vocals = new FlxSound();
+
+		playerStrums.forEach(function(spr:FlxSprite)
+		{
+			FlxTween.tween(spr, {y: spr.y - 200}, 0.6, {ease: FlxEase.cubeOut});
+		});
+
+		enemyStrums.forEach(function(spr:FlxSprite)
+		{
+			FlxTween.tween(spr, {y: spr.y - 200}, 0.6, {ease: FlxEase.cubeOut});
+		});
 
 		Highscore.saveScore(SONG.song, songScore, storyDifficulty);
 
