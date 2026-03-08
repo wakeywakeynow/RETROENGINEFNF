@@ -89,6 +89,7 @@ class PlayState extends MusicBeatState
 	var scoreTxt:FlxText;
 	var notesHit:Int = 0;
 	var susHit:Int = 0;
+	var noteMisses:Int = 0;
 
 	public static var campaignScore:Int = 0;
 
@@ -301,7 +302,7 @@ class PlayState extends MusicBeatState
 
 		add(healthBar);
 
-		scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 212, healthBarBG.y + 30, 0, "", 20);
+		scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 515, healthBarBG.y + 30, 0, "", 20);
 		scoreTxt.setFormat("assets/fonts/vcr.ttf", 16, FlxColor.WHITE, RIGHT);
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
@@ -640,7 +641,7 @@ class PlayState extends MusicBeatState
 	{
 		super.update(elapsed);
 
-		scoreTxt.text = "Score: " + songScore + " | Notes Hit: " + notesHit + " | Sustained Notes: " + susHit;
+		scoreTxt.text = "Score: " + songScore + " | Notes Hit: " + notesHit + " | Sustained Notes: " + susHit + " | Missed Notes: " + noteMisses;
 
 		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
 		{
@@ -920,6 +921,7 @@ class PlayState extends MusicBeatState
         				songScore -= 10;
 
         				vocals.volume = 0;
+						noteMisses += 1;
 
         				FlxG.sound.play('assets/sounds/missnote' + FlxG.random.int(1, 3) + TitleState.soundExt, FlxG.random.float(0.1, 0.2));
 
@@ -1286,6 +1288,8 @@ class PlayState extends MusicBeatState
 			combo = 0;
 
 			songScore -= 10;
+
+			noteMisses += 1;
 
 			FlxG.sound.play('assets/sounds/missnote' + FlxG.random.int(1, 3) + TitleState.soundExt, FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play('assets/sounds/missnote1' + TitleState.soundExt, 1, false);
