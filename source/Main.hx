@@ -16,7 +16,7 @@ class Main extends Sprite
 		#end
 
 		#if !mobile
-		addChild(new FPS(10, 3, 0xFFFFFF));
+		addChild(new RFPS(10, 3, 0xFFFFFF));
 		#end
 	}
 }
