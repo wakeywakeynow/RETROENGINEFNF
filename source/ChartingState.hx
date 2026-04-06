@@ -634,16 +634,21 @@ class ChartingState extends MusicBeatState
 
 	function updateHeads():Void
 	{
-		if (check_mustHitSection.checked)
-		{
-			leftIcon.animation.play(_song.player1);
-			rightIcon.animation.play(_song.player2);
-		}
-		else
-		{
-			leftIcon.animation.play(_song.player2);
-			rightIcon.animation.play(_song.player1);
-		}
+    	var leftChar = check_mustHitSection.checked ? _song.player1 : _song.player2;
+    	var rightChar = check_mustHitSection.checked ? _song.player2 : _song.player1;
+
+    	if (!leftIcon.animation.exists(leftChar))
+    	{
+        	leftChar = "face";
+    	}
+
+    	if (!rightIcon.animation.exists(rightChar))
+    	{
+        	rightChar = "face";
+    	}
+
+    	leftIcon.animation.play(leftChar);
+    	rightIcon.animation.play(rightChar);
 	}
 
 	function updateNoteUI():Void

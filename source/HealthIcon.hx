@@ -20,7 +20,14 @@ class HealthIcon extends FlxSprite
 		animation.add('dad', [12, 13], 0, false, isPlayer);
 		animation.add('bf-old', [14, 15], 0, false, isPlayer);
 		animation.add('gf', [16], 0, false, isPlayer);
-		animation.play(char);
+
+		// error stuff
+        if (!animation.exists(char))
+        {
+            char = "face";
+        }
+
+        animation.play(char);
 		scrollFactor.set();
 	}
 }
