@@ -427,6 +427,13 @@ class ChartingState extends MusicBeatState
 			return _song.notes[curSection].lengthInSteps;
 	}
 
+	function isMouseInsideGrid():Bool {
+    	return FlxG.mouse.x > gridBG.x &&
+           	FlxG.mouse.x < gridBG.x + gridBG.width &&
+           	FlxG.mouse.y > gridBG.y &&
+           	FlxG.mouse.y < gridBG.y + GRID_SIZE * _song.notes[curSection].lengthInSteps;
+	}
+
 	override function update(elapsed:Float)
 	{
 		Conductor.songPosition = FlxG.sound.music.time;
@@ -476,21 +483,15 @@ class ChartingState extends MusicBeatState
 			}
 			else
 			{
-				if (FlxG.mouse.x > gridBG.x
-					&& FlxG.mouse.x < gridBG.x + gridBG.width
-					&& FlxG.mouse.y > gridBG.y
-					&& FlxG.mouse.y < gridBG.y + (GRID_SIZE * _song.notes[curSection].lengthInSteps))
+				if (isMouseInsideGrid())
 				{
-					FlxG.log.add('added note');
+					trace('tryin to add note...');
 					addNote();
 				}
 			}
 		}
 
-		if (FlxG.mouse.x > gridBG.x
-			&& FlxG.mouse.x < gridBG.x + gridBG.width
-			&& FlxG.mouse.y > gridBG.y
-			&& FlxG.mouse.y < gridBG.y + (GRID_SIZE * _song.notes[curSection].lengthInSteps))
+		if (isMouseInsideGrid())
 		{
 			dummyArrow.x = Math.floor(FlxG.mouse.x / GRID_SIZE) * GRID_SIZE;
 			if (FlxG.keys.pressed.SHIFT)
