@@ -181,7 +181,7 @@ class FreeplayState extends MusicBeatState
 		switch(curDifficulty)
 		{
 			case 0: bg.color = FlxColor.fromRGB(100, 200, 255); // EASY
-			case 1: bg.color = FlxColor.fromRGB(125, 111, 87); // NORMAL
+			case 1: bg.color = FlxColor.fromRGB(255, 200, 50); // NORMAL
 			case 2: bg.color = FlxColor.fromRGB(255, 100, 100); // HARD
 		}
 	}

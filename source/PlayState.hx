@@ -282,7 +282,7 @@ class PlayState extends MusicBeatState
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
 
-		// colors ADD YOUR SONGS HERE IF YOU WANT COLORED HEALTHBARS
+		// ADD YOUR SONGS HERE
 		switch (SONG.song.toLowerCase())
 		{
 			case 'tutorial':
