@@ -11,3 +11,8 @@ Every commit made to the base repo OR a PR MUST be compilable.
 This engine is designed to be easy to compile without errors. Infact, i, kari, check every single commit i make to see if it compiles, then i test.
 
 If it compiles, good! You're ready.
+
+# BUILD SCRIPTS
+
+For debug you do - lime build windows -debug
+For release you do - lime build windows

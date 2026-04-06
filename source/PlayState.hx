@@ -1233,7 +1233,7 @@ class PlayState extends MusicBeatState
 
 		if (boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && !up && !down && !right && !left)
 		{
-			if (boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
+			if (boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss') && boyfriend.animation.curAnim.name != "firstDeath" && boyfriend.animation.curAnim.name != "deathLoop" && boyfriend.animation.curAnim.name != "deathConfirm")
 			{
 				boyfriend.playAnim('idle');
 			}
@@ -1444,11 +1444,6 @@ class PlayState extends MusicBeatState
 				vocals.time = Conductor.songPosition;
 				vocals.play();
 			}
-		}
-
-		if (dad.curCharacter == 'spooky' && totalSteps % 4 == 2)
-		{
-			// dad.dance();
 		}
 
 		super.stepHit();

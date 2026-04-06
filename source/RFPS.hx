@@ -18,7 +18,6 @@ class RFPS extends Sprite
 
 	var fps:Int = 0;
 	var memory:Float = 0;
-	var objects:Int = 0;
 
 	public function new(x:Int = 10, y:Int = 10, color:Int = 0xFFFFFF)
 	{
@@ -55,10 +54,6 @@ class RFPS extends Sprite
 			// MB
 			memory = System.totalMemory / 1024 / 1024;
 
-			#if debug
-			objects = countObjects();
-			#end
-
 			updateText();
 		}
 	}
@@ -68,26 +63,6 @@ class RFPS extends Sprite
 		var text = "FPS: " + fps + "\n";
 		text += "MEM: " + Std.int(memory) + " MB";
 
-		#if debug
-		text += "\nOBJS: " + objects;
-		#end
-
 		tf.text = text;
-	}
-
-	function countObjects():Int
-	{
-		var count = 0;
-
-		if (FlxG.state != null)
-		{
-			for (obj in FlxG.state.members)
-			{
-				if (obj != null)
-					count++;
-			}
-		}
-
-		return count;
 	}
 }
