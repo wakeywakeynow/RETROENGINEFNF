@@ -29,7 +29,7 @@ class AudioSettingsState extends MusicBeatState
         bg.setGraphicSize(Std.int(bg.width * 1.1));
         bg.updateHitbox();
         bg.screenCenter();
-        bg.antialiasing = true;
+        bg.antialiasing = !ClientPrefs.lowQuality;
         bg.color = 0xFFea71fd;
         add(bg);
 

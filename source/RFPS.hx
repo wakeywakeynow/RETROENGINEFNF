@@ -51,7 +51,7 @@ class RFPS extends Sprite
 
 	function onKeyDown(e:KeyboardEvent)
 	{
-		if (e.keyCode == 114) // should be F3
+		if (e.keyCode == 114) // it is F3 sorry i stupid
 		{
 			visible = !visible;
 			ClientPrefs.showFPS = visible;

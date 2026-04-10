@@ -117,7 +117,7 @@ class TitleState extends MusicBeatState
 
 		logoBl = new FlxSprite(-150, -100);
 		logoBl.frames = FlxAtlasFrames.fromSparrow(AssetPaths.logo2__png, AssetPaths.logo2__xml);
-		logoBl.antialiasing = true;
+		logoBl.antialiasing = !ClientPrefs.lowQuality;
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
 		logoBl.animation.play('bump');
 		logoBl.updateHitbox();
@@ -128,7 +128,7 @@ class TitleState extends MusicBeatState
 		//gfDance.frames = FlxAtlasFrames.fromSparrow(AssetPaths.gfDanceTitle__png, AssetPaths.gfDanceTitle__xml);
 		//gfDance.animation.addByIndices('danceLeft', 'gfDance', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
 		//gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
-		//gfDance.antialiasing = true;
+		//gfDance.antialiasing = !ClientPrefs.lowQuality;
 		//add(gfDance);
 		add(logoBl);
 
@@ -136,7 +136,7 @@ class TitleState extends MusicBeatState
 		titleText.frames = FlxAtlasFrames.fromSparrow(AssetPaths.titleEnter__png, AssetPaths.titleEnter__xml);
 		titleText.animation.addByPrefix('idle', "Press Enter to Begin", 24);
 		titleText.animation.addByPrefix('press', "ENTER PRESSED", 24);
-		titleText.antialiasing = true;
+		titleText.antialiasing = !ClientPrefs.lowQuality;
 		titleText.animation.play('idle');
 		titleText.updateHitbox();
 		// titleText.screenCenter(X);
@@ -145,7 +145,7 @@ class TitleState extends MusicBeatState
 		logo = new FlxSprite(-150, -100);
 		logo.frames = FlxAtlasFrames.fromSparrow(AssetPaths.logoBumpin__png, AssetPaths.logoBumpin__xml);
 		logo.screenCenter();
-		logo.antialiasing = true;
+		logo.antialiasing = !ClientPrefs.lowQuality;
 		logo.animation.addByPrefix('bump', 'logo bumpin', 24);
 		logo.animation.play('bump');
 		add(logo);
@@ -173,7 +173,7 @@ class TitleState extends MusicBeatState
 		ngSpr.setGraphicSize(Std.int(ngSpr.width * 0.8));
 		ngSpr.updateHitbox();
 		ngSpr.screenCenter(X);
-		ngSpr.antialiasing = true;
+		ngSpr.antialiasing = !ClientPrefs.lowQuality;
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 

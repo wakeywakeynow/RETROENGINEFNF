@@ -35,7 +35,7 @@ class Boyfriend extends Character
 		animation.addByPrefix('scared', 'BF idle shaking', 24);
 		playAnim('idle');
 
-		antialiasing = true;
+		antialiasing = !ClientPrefs.lowQuality;
 
 		addOffset('idle', -5);
 		addOffset("singUP", -29, 27);

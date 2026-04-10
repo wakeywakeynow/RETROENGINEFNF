@@ -10,7 +10,7 @@ class HealthIcon extends FlxSprite
 
 		loadGraphic(AssetPaths.iconGrid__png, true, 150, 150);
 
-		antialiasing = true;
+		antialiasing = !ClientPrefs.lowQuality;
 		animation.add('bf', [0, 1], 0, false, isPlayer);
 		animation.add('spooky', [2, 3], 0, false, isPlayer);
 		animation.add('pico', [4, 5], 0, false, isPlayer);
