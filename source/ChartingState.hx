@@ -418,6 +418,8 @@ class ChartingState extends MusicBeatState
 	}
 
 	var updatedSection:Bool = false;
+	private var _lastBpmTxtPos:Float = -9999;
+	private var _lastBpmTxtSection:Int = -1;
 
 	function lengthBpmBullshit():Float
 	{
@@ -439,27 +441,24 @@ class ChartingState extends MusicBeatState
 		Conductor.songPosition = FlxG.sound.music.time;
 		_song.song = typingShit.text;
 
-		strumLine.y = getYfromStrum(Conductor.songPosition % (Conductor.stepCrochet * lengthBpmBullshit()));
+		var sectionLen:Float = lengthBpmBullshit();
+		strumLine.y = getYfromStrum(Conductor.songPosition % (Conductor.stepCrochet * sectionLen));
 
 		if (curBeat % 4 == 0)
 		{
 			if (curStep > 16 * (curSection + 1))
 			{
-				trace(curStep);
-				trace((_song.notes[curSection].lengthInSteps) * (curSection + 1));
-				trace('DUMBSHIT');
-
 				if (_song.notes[curSection + 1] == null)
-				{
 					addSection();
-				}
 
 				changeSection(curSection + 1, false);
 			}
 		}
 
+		#if debug
 		FlxG.watch.addQuick('daBeat', curBeat);
 		FlxG.watch.addQuick('daStep', curStep);
+		#end
 
 		if (FlxG.mouse.justPressed)
 		{
@@ -565,11 +564,16 @@ class ChartingState extends MusicBeatState
 		if (FlxG.keys.justPressed.LEFT || FlxG.keys.justPressed.A)
 			changeSection(curSection - shiftThing);
 
-		bpmTxt.text = Std.string(FlxMath.roundDecimal(Conductor.songPosition / 1000, 2))
-			+ " / "
-			+ Std.string(FlxMath.roundDecimal(FlxG.sound.music.length / 1000, 2))
-			+ "\nSection: "
-			+ curSection;
+		if (Math.abs(Conductor.songPosition - _lastBpmTxtPos) > 100 || curSection != _lastBpmTxtSection)
+		{
+			bpmTxt.text = Std.string(FlxMath.roundDecimal(Conductor.songPosition / 1000, 2))
+				+ " / "
+				+ Std.string(FlxMath.roundDecimal(FlxG.sound.music.length / 1000, 2))
+				+ "\nSection: "
+				+ curSection;
+			_lastBpmTxtPos = Conductor.songPosition;
+			_lastBpmTxtSection = curSection;
+		}
 		super.update(elapsed);
 	}
 
@@ -598,7 +602,7 @@ class ChartingState extends MusicBeatState
 
 				FlxG.sound.music.time = (daLength - lengthBpmBullshit()) * Conductor.stepCrochet;
 				vocals.time = FlxG.sound.music.time;
-				updateCurStep();
+				curStep = Math.floor(Conductor.songPosition / Conductor.stepCrochet);
 			}
 
 			updateGrid();
@@ -815,7 +819,7 @@ class ChartingState extends MusicBeatState
 			var swagLength = i.lengthInSteps;
 
 			if (i.typeOfSection == Section.COPYCAT)
-				swagLength * 2;
+				swagLength *= 2;
 
 			daLength += swagLength;
 

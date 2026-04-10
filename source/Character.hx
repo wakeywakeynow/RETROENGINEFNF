@@ -24,7 +24,7 @@ class Character extends FlxSprite
 		this.isPlayer = isPlayer;
 
 		var tex:FlxAtlasFrames;
-		antialiasing = true;
+		antialiasing = !ClientPrefs.lowQuality;
 
 		switch (curCharacter)
 		{

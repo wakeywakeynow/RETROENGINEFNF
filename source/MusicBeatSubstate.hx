@@ -10,14 +10,9 @@ class MusicBeatSubstate extends FlxSubState
 		super();
 	}
 
-	private var lastBeat:Float = 0;
-	private var lastStep:Float = 0;
-
-	private var totalBeats:Int = 0;
-	private var totalSteps:Int = 0;
-
 	private var curStep:Int = 0;
 	private var curBeat:Int = 0;
+	private var totalBeats:Int = 0;
 	private var controls(get, never):Controls;
 
 	inline function get_controls():Controls
@@ -34,46 +29,25 @@ class MusicBeatSubstate extends FlxSubState
 
 	override function update(elapsed:Float)
 	{
-		everyStep();
+		var prevStep:Int = curStep;
+		var prevBeat:Int = curBeat;
 
-		updateCurStep();
-		curBeat = Math.round(curStep / 4);
+		curStep = Math.floor(Conductor.songPosition / Conductor.stepCrochet);
+		curBeat = Math.floor(curStep / 4);
+
+		if (curStep > prevStep)
+			stepHit();
+
+		if (curBeat > prevBeat)
+			beatHit();
 
 		super.update(elapsed);
 	}
 
-	/**
-	 * CHECKS EVERY FRAME
-	 */
-	private function everyStep():Void
-	{
-		if (Conductor.songPosition > lastStep + Conductor.stepCrochet - Conductor.safeZoneOffset
-			|| Conductor.songPosition < lastStep + Conductor.safeZoneOffset)
-		{
-			if (Conductor.songPosition > lastStep + Conductor.stepCrochet)
-			{
-				stepHit();
-			}
-		}
-	}
-
-	private function updateCurStep():Void
-	{
-		curStep = Math.floor(Conductor.songPosition / Conductor.stepCrochet);
-	}
-
-	public function stepHit():Void
-	{
-		totalSteps += 1;
-		lastStep += Conductor.stepCrochet;
-
-		if (totalSteps % 4 == 0)
-			beatHit();
-	}
+	public function stepHit():Void {}
 
 	public function beatHit():Void
 	{
-		lastBeat += Conductor.crochet;
-		totalBeats += 1;
+		totalBeats = curBeat;
 	}
 }

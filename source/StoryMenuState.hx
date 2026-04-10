@@ -16,6 +16,7 @@ using StringTools;
 class StoryMenuState extends MusicBeatState
 {
 	var scoreText:FlxText;
+	var rankText:FlxText;
 
 	var weekData:Array<Dynamic> = [['Tutorial'], ['Bopeebo', 'Fresh', 'Dadbattle'], ['Spookeez', 'South']];
 	var curDifficulty:Int = 1;
@@ -50,11 +51,9 @@ class StoryMenuState extends MusicBeatState
 		scoreText = new FlxText(10, 10, 0, "SCORE: 49324858", 36);
 		scoreText.setFormat("VCR OSD Mono", 32);
 
-		var rankText:FlxText = new FlxText(0, 10);
-		rankText.text = 'RANK: GREAT';
+		rankText = new FlxText(0, 10);
 		rankText.setFormat("assets/fonts/vcr.ttf", 32);
 		rankText.size = scoreText.size;
-		rankText.screenCenter(X);
 
 		var ui_tex = FlxAtlasFrames.fromSparrow(AssetPaths.campaign_menu_UI_assets__png, AssetPaths.campaign_menu_UI_assets__xml);
 		var yellowBG:FlxSprite = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFFF9CF51);
@@ -149,7 +148,7 @@ class StoryMenuState extends MusicBeatState
 		txtTracklist.font = rankText.font;
 		txtTracklist.color = 0xFFe55777;
 		add(txtTracklist);
-		// add(rankText);
+		add(rankText);
 		add(scoreText);
 
 		updateText();
@@ -288,6 +287,9 @@ class StoryMenuState extends MusicBeatState
 		sprDifficulty.y = leftArrow.y - 15;
 		intendedScore = Highscore.getWeekScore(curWeek, curDifficulty);
 
+		rankText.text = 'RANK: ' + getRank(intendedScore);
+		rankText.screenCenter(X);
+
 		FlxTween.tween(sprDifficulty, {y: leftArrow.y + 15, alpha: 1}, 0.07);
 	}
 
@@ -340,5 +342,22 @@ class StoryMenuState extends MusicBeatState
 		txtTracklist.x -= FlxG.width * 0.35;
 
 		intendedScore = Highscore.getWeekScore(curWeek, curDifficulty);
+
+		rankText.text = 'RANK: ' + getRank(intendedScore);
+		rankText.screenCenter(X);
+	}
+
+	function getRank(score:Int):String
+	{
+		if (score <= 0)
+			return '--';
+		else if (score < 100000)
+			return 'BAD';
+		else if (score < 300000)
+			return 'GOOD';
+		else if (score < 700000)
+			return 'GREAT';
+		else
+			return 'SICK';
 	}
 }

@@ -16,7 +16,9 @@ class Note extends FlxSprite
 	public var prevNote:Note;
 
 	public var fadeInTime:Float = 0.2; // this is in seconds!
-    private var fadeTimer:Float = 0;
+	private var fadeTimer:Float = 0;
+	private var _fadeInInv:Float = 1.0 / 0.2;
+	private var _targetAlpha:Float = 1.0;
 
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
@@ -65,7 +67,7 @@ class Note extends FlxSprite
 
 		setGraphicSize(Std.int(width * 0.7));
 		updateHitbox();
-		antialiasing = true;
+		antialiasing = !ClientPrefs.lowQuality;
 
 		alpha = 0;
 
@@ -91,6 +93,7 @@ class Note extends FlxSprite
 		{
 			noteScore *= 0.2;
 			alpha = 0.6;
+			_targetAlpha = 0.6;
 
 			x += width / 2;
 
@@ -135,23 +138,16 @@ class Note extends FlxSprite
 	{
 		super.update(elapsed);
 
-		if(alpha < 1)
+		if (alpha < _targetAlpha)
 		{
-    		fadeTimer += elapsed;
-    		var targetAlpha:Float = isSustainNote ? 0.6 : 1;
-    		alpha = Math.min(targetAlpha, fadeTimer / fadeInTime * targetAlpha);
+			fadeTimer += elapsed;
+			alpha = Math.min(_targetAlpha, fadeTimer * _fadeInInv * _targetAlpha);
 		}
 
 		if (mustPress)
 		{
-			// The * 0.5 us so that its easier to hit them too late, instead of too early
-			if (strumTime > Conductor.songPosition - Conductor.safeZoneOffset
-				&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * 0.5))
-			{
-				canBeHit = true;
-			}
-			else
-				canBeHit = false;
+			canBeHit = (strumTime > Conductor.songPosition - Conductor.safeZoneOffset
+				&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * 0.5));
 
 			if (strumTime < Conductor.songPosition - Conductor.safeZoneOffset)
 				tooLate = true;
@@ -161,15 +157,10 @@ class Note extends FlxSprite
 			canBeHit = false;
 
 			if (strumTime <= Conductor.songPosition)
-			{
 				wasGoodHit = true;
-			}
 		}
 
-		if(tooLate)
-		{
-    		var minAlpha:Float = isSustainNote ? 0.3 : 0.3;
-    		alpha = Math.max(alpha, minAlpha);
-		}
+		if (tooLate && alpha > 0.3)
+			alpha = 0.3;
 	}
 }

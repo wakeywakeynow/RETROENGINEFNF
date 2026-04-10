@@ -6,18 +6,12 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 
-class SettingsState extends MusicBeatState
+class GraphicsSettingsState extends MusicBeatState
 {
-	var options:Array<String> = [
-		"AUDIO",
-		"GRAPHICS",
-		"BACK"
-	];
-
 	var curSelected:Int = 0;
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
-
+	private var grpLabels:FlxTypedGroup<FlxText>;
 	private var bg:FlxSprite;
 
 	override function create()
@@ -34,17 +28,27 @@ class SettingsState extends MusicBeatState
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		for (i in 0...options.length)
+		grpLabels = new FlxTypedGroup<FlxText>();
+		add(grpLabels);
+
+		var optionNames:Array<String> = ["LOW QUALITY", "BACK"];
+
+		for (i in 0...optionNames.length)
 		{
-			var optionText:Alphabet = new Alphabet(0, (70 * i) + 30, options[i], true, false);
+			var optionText:Alphabet = new Alphabet(0, (70 * i) + 30, optionNames[i], true, false);
 			optionText.isMenuItem = true;
 			optionText.targetY = i;
-
 			optionText.screenCenter(X);
-
+			optionText.ID = i;
 			grpOptions.add(optionText);
 		}
 
+		var valueLabel:FlxText = new FlxText(0, 0, 0, "", 20);
+		valueLabel.setFormat("assets/fonts/vcr.ttf", 20, FlxColor.WHITE);
+		valueLabel.ID = 0;
+		grpLabels.add(valueLabel);
+
+		updateLabels();
 		changeSelection();
 
 		super.create();
@@ -54,34 +58,41 @@ class SettingsState extends MusicBeatState
 	{
 		super.update(elapsed);
 
-		var upP = controls.UP_P;
-		var downP = controls.DOWN_P;
-
-		if (upP)
+		if (controls.UP_P)
 			changeSelection(-1);
-
-		if (downP)
+		if (controls.DOWN_P)
 			changeSelection(1);
-
-		if (controls.BACK)
-			FlxG.switchState(new MainMenuState());
 
 		if (controls.ACCEPT)
 			selectOption();
+
+		if (controls.BACK)
+			FlxG.switchState(new SettingsState());
 	}
 
 	function selectOption()
 	{
-		switch(options[curSelected])
+		switch (curSelected)
 		{
-			case "AUDIO":
-				FlxG.switchState(new AudioSettingsState());
+			case 0: // LOW QUALITY
+				ClientPrefs.lowQuality = !ClientPrefs.lowQuality;
+				ClientPrefs.save();
+				updateLabels();
+			case 1: // BACK
+				FlxG.switchState(new SettingsState());
+		}
+	}
 
-			case "GRAPHICS":
-				FlxG.switchState(new GraphicsSettingsState());
-
-			case "BACK":
-				FlxG.switchState(new MainMenuState());
+	function updateLabels()
+	{
+		for (label in grpLabels.members)
+		{
+			if (label.ID == 0)
+			{
+				label.text = ClientPrefs.lowQuality ? 'ON' : 'OFF';
+				label.x = FlxG.width - label.width - 40;
+				label.y = (70 * 0) + 30 + 10;
+			}
 		}
 	}
 
@@ -92,9 +103,8 @@ class SettingsState extends MusicBeatState
 		curSelected += change;
 
 		if (curSelected < 0)
-			curSelected = options.length - 1;
-
-		if (curSelected >= options.length)
+			curSelected = grpOptions.length - 1;
+		if (curSelected >= grpOptions.length)
 			curSelected = 0;
 
 		var bullShit:Int = 0;
@@ -105,7 +115,6 @@ class SettingsState extends MusicBeatState
 			bullShit++;
 
 			item.alpha = 0.6;
-
 			if (item.targetY == 0)
 				item.alpha = 1;
 		}
