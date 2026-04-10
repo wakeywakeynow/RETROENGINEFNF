@@ -380,6 +380,7 @@ class PlayState extends MusicBeatState
 					var ready:FlxSprite = new FlxSprite().loadGraphic('assets/images/ready.png');
 					ready.scrollFactor.set();
 					ready.screenCenter();
+					ready.antialiasing = !ClientPrefs.lowQuality;
 					add(ready);
 					FlxTween.tween(ready, {y: ready.y += 100, alpha: 0}, Conductor.crochet / 1000, {
 						ease: FlxEase.cubeInOut,
@@ -393,6 +394,7 @@ class PlayState extends MusicBeatState
 					var set:FlxSprite = new FlxSprite().loadGraphic('assets/images/set.png');
 					set.scrollFactor.set();
 					set.screenCenter();
+					set.antialiasing = !ClientPrefs.lowQuality;
 					add(set);
 					FlxTween.tween(set, {y: set.y += 100, alpha: 0}, Conductor.crochet / 1000, {
 						ease: FlxEase.cubeInOut,
@@ -406,6 +408,7 @@ class PlayState extends MusicBeatState
 					var go:FlxSprite = new FlxSprite().loadGraphic('assets/images/go.png');
 					go.scrollFactor.set();
 					go.screenCenter();
+					go.antialiasing = !ClientPrefs.lowQuality;
 					add(go);
 					FlxTween.tween(go, {y: go.y += 100, alpha: 0}, Conductor.crochet / 1000, {
 						ease: FlxEase.cubeInOut,

@@ -24,6 +24,7 @@ class DialogueBox extends FlxSpriteGroup
 		box.animation.addByPrefix('normalOpen', 'Speech Bubble Normal Open', 24, false);
 		box.animation.addByPrefix('normal', 'speech bubble normal', 24);
 		box.animation.play('normalOpen');
+		box.antialiasing = !ClientPrefs.lowQuality;
 		add(box);
 
 		if (!talkingRight)
